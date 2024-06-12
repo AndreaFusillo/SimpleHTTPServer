@@ -38,7 +38,16 @@ def handle_GET(args, conn):
     
     print(response)
     conn.sendall(response)
-    
+def handle_POST(args, conn):
+    path = args[0].split(" ")
+    if path[1].startswith("/files/"):
+        fileName = path[1].split("/")[2]
+        filePath = f"./tmp/data/files/{fileName}"
+        with open(filePath,"w") as file :
+            print(args[6])
+            file.write(args[6])
+        response = "HTTP/1.1 201 Created\r\n\r\n".encode()
+    conn.sendall(response) 
 
 def main():
     print("Logs from your program will appear here!")
@@ -57,7 +66,9 @@ def main():
                 path = args[0].split(" ")
                 if path[0] == "GET":
                     handle_GET(args,conn)
-            
+                elif path[0] == "POST":
+                    handle_POST(args,conn)
+
 
             
 
