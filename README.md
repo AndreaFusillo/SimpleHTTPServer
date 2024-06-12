@@ -1,2 +1,2 @@
 # SimpleHTTPServer
-A basic HTTP server for learning purpose 
+A basic HTTP server in Python for learning purpose 
