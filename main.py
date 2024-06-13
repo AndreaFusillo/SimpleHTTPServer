@@ -23,7 +23,6 @@ def handle_GET(args, conn):
                 response = (f"HTTP/1.1 200 OK\r\nContent-Encoding: gzip\r\nContent-Type: text/plain\r\nContent-Length: {len(string)}\r\n\r\n".encode()) + string
             else:
                 response = f"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {len(string)}\r\n\r\n{string}".encode()
-
         elif path[1].startswith("/files/"):
             fileName = path[1].split("/")[2]
             filePath = f"/tmp/data/codecrafters.io/http-server-tester/{fileName}"
