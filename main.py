@@ -12,8 +12,11 @@ def handle_GET(args, conn):
             string = path[1][6:]  # Rimuove "/echo/"
             validEncoding = False
             for i in args:
-                if i == "Accept-Encoding: gzip":
-                    validEncoding = True
+                if i.startswith("Accept-Encoding:"):
+                    for k in i.split(" "):
+                        print(k)
+                        if k.startswith("gzip"):
+                            validEncoding = True
             if validEncoding:
                 response = f"HTTP/1.1 200 OK\r\nContent-Encoding: gzip\r\nContent-Type: text/plain\r\nContent-Length: {len(string)}\r\n\r\n{string}".encode()
             else:
