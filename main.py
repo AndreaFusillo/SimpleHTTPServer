@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import socket
 import os
+import gzip
 
 def handle_GET(args, conn):
     if len(args) > 1:
@@ -18,7 +19,8 @@ def handle_GET(args, conn):
                         if k.startswith("gzip"):
                             validEncoding = True
             if validEncoding:
-                response = f"HTTP/1.1 200 OK\r\nContent-Encoding: gzip\r\nContent-Type: text/plain\r\nContent-Length: {len(string)}\r\n\r\n{string}".encode()
+                string = gzip.compress(string.encode()) 
+                response = (f"HTTP/1.1 200 OK\r\nContent-Encoding: gzip\r\nContent-Type: text/plain\r\nContent-Length: {len(string)}\r\n\r\n".encode()) + string
             else:
                 response = f"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {len(string)}\r\n\r\n{string}".encode()
 
